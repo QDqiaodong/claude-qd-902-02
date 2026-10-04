@@ -1,0 +1,405 @@
+/* 生活垃圾焚烧发电厂 · 工业监控风格（深色底 / 数据密集 / 状态灯与仪表） */
+
+:root {
+  /* 主色：蓝灰 #37474f */
+  --wp-primary: #37474f;
+  --wp-primary-2: #455a64;
+  --wp-primary-3: #546e7a;
+  --wp-accent: #29b6f6;
+
+  --wp-bg: #0c1115;
+  --wp-bg-2: #111a20;
+  --wp-panel: #16212a;
+  --wp-panel-2: #1b2833;
+  --wp-border: #2a3944;
+  --wp-border-2: #35485a;
+
+  --wp-text: #d9e4ea;
+  --wp-text-dim: #8ba1ae;
+  --wp-text-mute: #6b8290;
+
+  --wp-ok: #2ecc8f;
+  --wp-warn: #f5a623;
+  --wp-danger: #ef5350;
+  --wp-info: #4fc3f7;
+
+  /* Element Plus 主题跟随主色 */
+  --el-color-primary: #37474f;
+  --el-color-primary-light-3: #546e7a;
+  --el-color-primary-light-5: #607d8b;
+  --el-color-primary-light-7: #78909c;
+  --el-color-primary-light-8: #90a4ae;
+  --el-color-primary-light-9: #b0bec5;
+  --el-color-primary-dark-2: #2b383f;
+  --el-bg-color: #1b2833;
+  --el-bg-color-page: #0c1115;
+  --el-text-color-primary: #d9e4ea;
+  --el-text-color-regular: #c2d0d8;
+  --el-border-color: #2a3944;
+  --el-border-color-light: #2a3944;
+  --el-fill-color-blank: #16212a;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#app {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: var(--wp-bg);
+  color: var(--wp-text);
+  font-family: "PingFang SC", "Microsoft YaHei", "Helvetica Neue", Arial, sans-serif;
+  font-size: 13px;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* 数字统一用等宽，读数对齐 */
+.num,
+.mono {
+  font-family: "SF Mono", "JetBrains Mono", Menlo, Consolas, monospace;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---------- 通用面板 ---------- */
+.wp-panel {
+  background: linear-gradient(180deg, var(--wp-panel-2) 0%, var(--wp-panel) 100%);
+  border: 1px solid var(--wp-border);
+  border-radius: 8px;
+}
+
+.wp-panel-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--wp-border);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  color: var(--wp-text);
+}
+
+.wp-panel-title .sub {
+  font-size: 11px;
+  font-weight: 400;
+  color: var(--wp-text-mute);
+  letter-spacing: 0;
+}
+
+.wp-panel-body {
+  padding: 12px 14px;
+}
+
+.wp-section {
+  margin-bottom: 16px;
+  scroll-margin-top: 120px;
+}
+
+.wp-section-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0 0 10px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--wp-text);
+  letter-spacing: 1px;
+}
+
+.wp-section-title::before {
+  content: "";
+  width: 3px;
+  height: 14px;
+  background: var(--wp-accent);
+  border-radius: 2px;
+}
+
+/* ---------- 状态灯 ---------- */
+.wp-dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  margin-right: 6px;
+  vertical-align: middle;
+}
+
+.wp-dot.ok {
+  background: var(--wp-ok);
+  box-shadow: 0 0 6px rgba(46, 204, 143, 0.9);
+}
+
+.wp-dot.warn {
+  background: var(--wp-warn);
+  box-shadow: 0 0 6px rgba(245, 166, 35, 0.9);
+}
+
+.wp-dot.danger {
+  background: var(--wp-danger);
+  box-shadow: 0 0 6px rgba(239, 83, 80, 0.9);
+  animation: wp-blink 1s steps(2, start) infinite;
+}
+
+.wp-dot.idle {
+  background: var(--wp-text-mute);
+}
+
+@keyframes wp-blink {
+  50% {
+    opacity: 0.25;
+  }
+}
+
+/* ---------- 统计卡 ---------- */
+.wp-stat-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+
+.wp-stat-card {
+  position: relative;
+  padding: 14px 16px;
+  background: linear-gradient(135deg, #1e2c36 0%, #16212a 100%);
+  border: 1px solid var(--wp-border);
+  border-left: 3px solid var(--wp-primary-3);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.wp-stat-card .label {
+  font-size: 12px;
+  color: var(--wp-text-dim);
+  letter-spacing: 1px;
+}
+
+.wp-stat-card .value {
+  margin-top: 4px;
+  font-size: 28px;
+  font-weight: 700;
+  color: #eaf3f8;
+  line-height: 1.1;
+}
+
+.wp-stat-card .unit {
+  margin-left: 4px;
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--wp-text-mute);
+}
+
+.wp-stat-card .foot {
+  margin-top: 6px;
+  font-size: 11px;
+  color: var(--wp-text-mute);
+}
+
+/* ---------- 数据条 ---------- */
+.wp-bar {
+  position: relative;
+  height: 10px;
+  border-radius: 5px;
+  background: #0e171d;
+  border: 1px solid var(--wp-border);
+  overflow: hidden;
+}
+
+.wp-bar > i {
+  display: block;
+  height: 100%;
+  border-radius: 5px;
+  background: linear-gradient(90deg, #2b6f8f, var(--wp-accent));
+  transition: width 0.5s ease;
+}
+
+.wp-bar.danger > i {
+  background: linear-gradient(90deg, #8f2b2b, var(--wp-danger));
+}
+
+.wp-bar.warn > i {
+  background: linear-gradient(90deg, #8f6a2b, var(--wp-warn));
+}
+
+/* ---------- 表格（自定义，深色密集） ---------- */
+.wp-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12px;
+}
+
+.wp-table th {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  background: #1a2630;
+  color: var(--wp-text-dim);
+  font-weight: 600;
+  text-align: left;
+  padding: 8px 10px;
+  border-bottom: 1px solid var(--wp-border-2);
+  white-space: nowrap;
+}
+
+.wp-table td {
+  padding: 7px 10px;
+  border-bottom: 1px solid #1e2b34;
+  color: var(--wp-text);
+  white-space: nowrap;
+}
+
+.wp-table tbody tr:hover {
+  background: rgba(41, 182, 246, 0.07);
+  cursor: pointer;
+}
+
+.wp-table tbody tr.active {
+  background: rgba(41, 182, 246, 0.13);
+}
+
+.wp-scroll {
+  max-height: 460px;
+  overflow: auto;
+}
+
+.wp-scroll::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.wp-scroll::-webkit-scrollbar-thumb {
+  background: #33475a;
+  border-radius: 4px;
+}
+
+.wp-scroll::-webkit-scrollbar-track {
+  background: #101a21;
+}
+
+/* ---------- 标签 ---------- */
+.wp-tag {
+  display: inline-block;
+  padding: 1px 7px;
+  border-radius: 3px;
+  font-size: 11px;
+  border: 1px solid var(--wp-border-2);
+  color: var(--wp-text-dim);
+  background: #17242e;
+}
+
+.wp-tag.ok {
+  color: var(--wp-ok);
+  border-color: rgba(46, 204, 143, 0.4);
+  background: rgba(46, 204, 143, 0.1);
+}
+
+.wp-tag.warn {
+  color: var(--wp-warn);
+  border-color: rgba(245, 166, 35, 0.4);
+  background: rgba(245, 166, 35, 0.1);
+}
+
+.wp-tag.danger {
+  color: var(--wp-danger);
+  border-color: rgba(239, 83, 80, 0.4);
+  background: rgba(239, 83, 80, 0.1);
+}
+
+.wp-tag.primary {
+  color: #b0cbd8;
+  border-color: var(--wp-primary-3);
+  background: rgba(55, 71, 79, 0.55);
+}
+
+/* ---------- 抖动（超标仪表） ---------- */
+@keyframes wp-shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-3px); }
+  75% { transform: translateX(3px); }
+}
+
+.wp-shake {
+  animation: wp-shake 0.45s ease-in-out infinite;
+}
+
+/* ---------- 闪烁（未达标的温度柱） ---------- */
+@keyframes wp-glow {
+  0%, 100% { box-shadow: 0 0 0 rgba(239, 83, 80, 0.0); }
+  50% { box-shadow: 0 0 12px rgba(239, 83, 80, 0.85); }
+}
+
+.wp-glow {
+  animation: wp-glow 1.1s ease-in-out infinite;
+}
+
+/* ---------- 管线流动动画 ---------- */
+@keyframes wp-flow {
+  from { background-position: 0 0; }
+  to { background-position: 40px 0; }
+}
+
+/* ---------- Element Plus 深色适配 ---------- */
+.el-dialog {
+  background: var(--wp-panel);
+  border: 1px solid var(--wp-border-2);
+  border-radius: 8px;
+}
+
+.el-dialog__title,
+.el-form-item__label {
+  color: var(--wp-text) !important;
+}
+
+.el-input__wrapper,
+.el-textarea__inner {
+  background-color: #101a21 !important;
+  box-shadow: 0 0 0 1px var(--wp-border-2) inset !important;
+}
+
+.el-input__inner {
+  color: var(--wp-text) !important;
+}
+
+.el-select-dropdown,
+.el-popper.is-light {
+  background: var(--wp-panel) !important;
+  border-color: var(--wp-border-2) !important;
+  color: var(--wp-text) !important;
+}
+
+.el-select-dropdown__item {
+  color: var(--wp-text) !important;
+}
+
+.el-table {
+  background: transparent !important;
+  --el-table-bg-color: transparent;
+  --el-table-tr-bg-color: transparent;
+  --el-table-header-bg-color: #1a2630;
+  --el-table-border-color: #1e2b34;
+  --el-table-text-color: #d9e4ea;
+  --el-table-header-text-color: #8ba1ae;
+  --el-table-row-hover-bg-color: rgba(41, 182, 246, 0.08);
+}
+
+.el-table th.el-table__cell {
+  background: #1a2630 !important;
+}
+
+.el-table tr {
+  background: transparent !important;
+}
+
+.el-table td.el-table__cell {
+  border-color: #1e2b34 !important;
+}
+
+.el-message {
+  min-width: 260px;
+}
